@@ -3,7 +3,7 @@
 ## Resources
 * [The Neural Network Zoo](http://www.asimovinstitute.org/neural-network-zoo/)
 
-* [Analyzing Six Deep Learning Tools for Music Generation](http://www.asimovinstitute.org/notes-vs-waves/)
+* [Analyzing Six Deep Learning Tools for Music Generation](http://www.asimovinstitute.org/analyzing-deep-learning-tools-music/)
 
 * [Composing Music With Recurrent Neural Networks: Theory](http://www.hexahedria.com/2015/08/03/composing-music-with-recurrent-neural-networks/)
 * [Composing Music With Recurrent Neural Networks: Code](https://github.com/hexahedria/biaxial-rnn-music-composition)
