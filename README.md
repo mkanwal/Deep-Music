@@ -15,4 +15,5 @@
 * [Keras](https://keras.io/)
 * [Sequence to Sequence Learning with Keras](https://github.com/farizrahman4u/seq2seq)
 
+* [Python MIDI Library](https://github.com/vishnubob/python-midi)
 * [Free MIDI Files](http://www.mididb.com/genres/)
