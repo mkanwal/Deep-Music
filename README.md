@@ -15,7 +15,6 @@
 * [Keras](https://keras.io/)
 * [Sequence to Sequence Learning with Keras](https://github.com/farizrahman4u/seq2seq)
 
+* [About MIDI](http://stackoverflow.com/questions/14448380/how-do-i-read-a-midi-file-change-its-instrument-and-write-it-back)
 * [Python MIDI Library](https://github.com/vishnubob/python-midi)
 * [Free MIDI Files](http://www.mididb.com/genres/)
-
-* [How do MIDI](http://stackoverflow.com/questions/14448380/how-do-i-read-a-midi-file-change-its-instrument-and-write-it-back)
