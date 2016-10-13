@@ -15,7 +15,7 @@ In MIDI, an event is characterized by the following features:
 - Velocity: Integer in (0,infinity)
 - Duration: Integer in (0,infinity)
 
-We use a -1 for all features to indicate a rest.
+We use a -1 in all features to indicate a rest.
 
 ## Resources
 * [The Neural Network Zoo](http://www.asimovinstitute.org/neural-network-zoo/)
