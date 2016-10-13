@@ -14,6 +14,7 @@ In MIDI, an event is characterized by the following features:
 - Note: Integer in [0,127]
 - Velocity: Integer in (0,infinity)
 - Duration: Integer in (0,infinity)
+
 We use a -1 for all features to indicate a rest.
 
 ## Resources
