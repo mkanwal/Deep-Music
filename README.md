@@ -5,6 +5,7 @@ Requirements:
 - [TensorFlow](https://www.tensorflow.org/)
 - [Keras](https://keras.io/)
 - [seq2seq](https://github.com/farizrahman4u/seq2seq)
+- [Recurrent Shop](https://github.com/datalogai/recurrentshop)
 
 ## MIDI Input Details
 Every input vector x is 66-dimensional and structured as follows:
