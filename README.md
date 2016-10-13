@@ -1,5 +1,14 @@
 # Deep Music
 
+## MIDI Input Details
+Every input vector x is 66-dimensional and structured as follows:
+- x[0]: relative event time from previous input (tick)
+- x[1]: BPM
+- x[2-5]: Channel 1: font, note, velocity, absolute duration
+- x[6-9]: Channel 2
+- ...
+- x[63-66]: Channel 16
+
 ## Resources
 * [The Neural Network Zoo](http://www.asimovinstitute.org/neural-network-zoo/)
 
