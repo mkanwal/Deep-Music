@@ -1,5 +1,11 @@
 # Deep Music
 
+## Installation
+Requirements:
+- [TensorFlow](https://www.tensorflow.org/)
+- [Keras](https://keras.io/)
+- [seq2seq](https://github.com/farizrahman4u/seq2seq)
+
 ## MIDI Input Details
 Every input vector x is 66-dimensional and structured as follows:
 - x[0]: relative event time from previous input (tick)
