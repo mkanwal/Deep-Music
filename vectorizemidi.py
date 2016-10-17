@@ -19,7 +19,7 @@ class MidiContainer:
         return np.vstack((self.curr_instrument, pitch, velocity, time + self.abs_time - note_start))
     
     def add_data(self, note_vector, note_start):
-        event_column = np.vstack((note_start, self.curr_bpm, note_vector, np.zeros((60,1))))
+        event_column = np.vstack((note_start, self.curr_bpm, note_vector, np.ones((60,1))*-1))
         self.data = np.hstack((self.data, event_column))
     
     def combine_tracks(self):
