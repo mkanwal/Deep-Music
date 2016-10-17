@@ -1,2 +1,3 @@
-*.ipynb_checkpoints
 *.mid
+.ipynb_checkpoints
+.DS_Store
