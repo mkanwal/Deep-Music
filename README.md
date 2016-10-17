@@ -6,7 +6,7 @@ Requirements:
 - [Keras](https://keras.io/)
 - [seq2seq](https://github.com/farizrahman4u/seq2seq)
 - [Recurrent Shop](https://github.com/datalogai/recurrentshop)
-- [Python Midi](http://https://github.com/vishnubob/python-midi) / pip install python-midi
+- [Python MIDI](https://github.com/vishnubob/python-midi) / pip install python-midi
 
 ## MIDI Input Details
 Every input vector x is 66-dimensional and structured as follows:
@@ -23,7 +23,7 @@ In MIDI, an event is characterized by the following features:
 - Velocity: Integer in (0,infinity)
 - Duration: Integer in (0,infinity)
 
-We use a -1 in all features to indicate a rest.
+We use a -1 in all features to indicate a silenced channel.
 
 ## Resources
 * [The Neural Network Zoo](http://www.asimovinstitute.org/neural-network-zoo/)
