@@ -34,9 +34,9 @@ class MidiContainer:
             if curr_duration == prev_duration:
                 for ni in xrange(2,67,4):
                     note_vec = col[ni:ni+4]
-                    curr_inst = note_vec[0] if note_vec.any() else 0
+                    curr_inst = note_vec[0] if note_vec.any() else -1
                     if np.sum(note_vec) > 0 and curr_inst != old_inst:
-                        i_rep = np.where(self.data[5:,edit_index] == 0)[0][0]+5
+                        i_rep = np.where(self.data[:,edit_index] == -1)[0][0]
                         self.data[i_rep:i_rep+4, edit_index] = note_vec
                         delete_this.append(i)
             else:
