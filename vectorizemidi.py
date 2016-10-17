@@ -77,9 +77,84 @@ def midi_to_vector(fname):
     midi_vector.combine_tracks()             
     return midi_vector    
 
+def vector_to_midi(vector):
+    '''Given a np array (vector.data), returns a python midi pattern'''
+    pattern = midi.Pattern(resolution=960)
+    #first, separate tracks
+    tracklist = []
+    for i in xrange(2,vector.shape[0],4):
+        track = vector[i:i+4,:]
+        if np.sum(track) > 0:
+            tracklist.append(np.vstack((vector[0:2], track)))
+   
+    for track in tracklist:
+        miditrack = midi.Track()
+        pattern.append(miditrack)
+        bpm = track[1,0]
+        tempoevent = midi.SetTempoEvent(tick=0, bpm=bpm)
+        miditrack.append(tempoevent)
+        instrument = int(track[2,0])
+        fontevent = midi.ProgramChangeEvent(tick=0, value=instrument)
+        miditrack.append(fontevent)
+        if not np.array_equal(bpm * np.ones(track.shape[1]), track[1,:]):
+            print 'Tempo changes. Code assumes it doesn\'t. Contact Jingyi.'
+        
+        event_tick = 0   
+        track_duration = np.max(track[0,:] + track[-1,:])
+        active_notes = {}
+        start_times = track[0,:]
+        for t in xrange(0, int(track_duration)+1):
+            for pitch in active_notes:
+                active_notes[pitch] -= 1
+            
+            negs = [k for k,v in active_notes.iteritems() if v < 0]
+            for n in negs:
+                active_notes.pop(n)
+                
+            if 0 in active_notes.values():
+                pitches = [k for k,v in active_notes.iteritems() if v == 0]
+                for pitch in pitches:
+                    off = midi.NoteOffEvent(tick=t - event_tick, pitch=pitch)
+                    miditrack.append(off)
+                    active_notes.pop(pitch)
+                    event_tick = t
+                    #relatively subtract
+                    for pitch in active_notes:
+                        active_notes[pitch] -= event_tick
+                    if active_notes:
+                        if sum(active_notes.itervalues()) > 0:
+                            start_times -= event_tick
+                            event_tick = 0
+                    
+            #run through track to add on/off events
+            if t in start_times:
+                ni = np.where(t == start_times)
+                for n in ni[0]:
+                    note = track[:, n]
+                    start_time = int(note[0])
+                    pitch = int(note[3])
+                    velocity = int(note[4])
+                    duration = int(note[5])
+                    active_notes[pitch] = duration
+                    on = midi.NoteOnEvent(tick = t - event_tick, velocity=velocity, pitch=pitch)
+                    miditrack.append(on)
+                    event_tick = start_time
+                    
+        miditrack.append(midi.EndOfTrackEvent(tick=0))
+    return pattern
+
+
 
 fname = ''
 while fname == '':
     fname = raw_input("Filename of midi to convert: ")
 vectorized = midi_to_vector(fname)
 print "Here's the end data: \n", vectorized.data
+pattern = vector_to_midi(vectorized.data)
+fout = ''
+while fout == '':
+    fout = raw_input("Filename to send output midi: ")
+if '.mid' in fout:
+   fout = fout[:-4] 
+midi.write_midifile(fout+'.mid', pattern)
+print "Saved to " + fout+".mid - Verify it's the same as the original"
