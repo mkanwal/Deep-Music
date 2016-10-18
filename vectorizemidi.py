@@ -48,6 +48,8 @@ class MidiContainer:
         mask = np.ones(self.data.shape, np.bool)
         mask[:,delete_this] = 0
         self.data = self.data[mask].reshape(66,-1)
+       
+                
     
 def midi_to_vector(fname):
     '''
@@ -56,6 +58,7 @@ def midi_to_vector(fname):
     pattern = midi.read_midifile(fname)
     midi_vector = MidiContainer()
     for track in pattern:
+        midi_vector.abs_time = 0
         for event in track:
             if isinstance(event, midi.SetTempoEvent): 
                 midi_vector.curr_bpm = event.get_bpm()
@@ -74,20 +77,27 @@ def midi_to_vector(fname):
                     midi_vector.add_data(note_vec, midi_vector.active_pitches[pitch][1]) #ugh bad data abstraction
                     midi_vector.active_pitches.pop(pitch, None)
                     midi_vector.abs_time += event.tick
-    midi_vector.combine_tracks()             
-    return midi_vector    
+                
+    midi_vector.combine_tracks()        
+    return midi_vector
 
 def vector_to_midi(vector):
     '''Given a np array (vector.data), returns a python midi pattern'''
     pattern = midi.Pattern(resolution=960)
     #first, separate tracks
-    tracklist = []
+    tracklist = {}
     for i in xrange(2,vector.shape[0],4):
-        track = vector[i:i+4,:]
-        if np.sum(track) > 0:
-            tracklist.append(np.vstack((vector[0:2], track)))
-   
-    for track in tracklist:
+        for j in xrange(0, vector.shape[1]):
+            track = vector[i:i+4,j]
+            if np.sum(track) > 0:
+                instrument = int(track[0])
+                if instrument not in tracklist:
+                    tracklist[instrument] = np.vstack((vector[0:2,j].reshape(-1,1), track.reshape(-1,1)))
+                else: 
+                    tracklist[instrument] = np.hstack((tracklist[instrument], np.vstack((vector[0:2,j].reshape(-1,1), track.reshape(-1,1)))))
+
+
+    for k, track in tracklist.iteritems():
         miditrack = midi.Track()
         pattern.append(miditrack)
         bpm = track[1,0]
@@ -111,20 +121,13 @@ def vector_to_midi(vector):
             for n in negs:
                 active_notes.pop(n)
                 
-            if 0 in active_notes.values():
+            while 0 in active_notes.values():
                 pitches = [k for k,v in active_notes.iteritems() if v == 0]
                 for pitch in pitches:
                     off = midi.NoteOffEvent(tick=t - event_tick, pitch=pitch)
                     miditrack.append(off)
                     active_notes.pop(pitch)
                     event_tick = t
-                    #relatively subtract
-                    for pitch in active_notes:
-                        active_notes[pitch] -= event_tick
-                    if active_notes:
-                        if sum(active_notes.itervalues()) > 0:
-                            start_times -= event_tick
-                            event_tick = 0
                     
             #run through track to add on/off events
             if t in start_times:
