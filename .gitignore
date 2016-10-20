@@ -1,3 +1,4 @@
-*.mid
+*.pyc
 .ipynb_checkpoints
 .DS_Store
+data
