@@ -5,6 +5,7 @@ Requirements:
 - [TensorFlow](https://www.tensorflow.org/versions/r0.11/get_started/os_setup.html#download-and-setup)
 - [Keras](https://keras.io/#installation)
 - [Python MIDI](https://github.com/vishnubob/python-midi) / pip install python-midi
+- [h5py](http://docs.h5py.org) / conda install h5py
 
 ## MIDI Input Details
 Every input vector x is 66-dimensional and structured as follows:
