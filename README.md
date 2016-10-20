@@ -4,8 +4,8 @@
 Requirements:
 - [TensorFlow](https://www.tensorflow.org/versions/r0.11/get_started/os_setup.html#download-and-setup)
 - [Keras](https://keras.io/#installation)
-- [Python MIDI](https://github.com/vishnubob/python-midi) / pip install python-midi
-- [h5py](http://docs.h5py.org) / conda install h5py
+- [Python MIDI](https://github.com/vishnubob/python-midi): pip install python-midi
+- [h5py](http://docs.h5py.org): conda install h5py
 
 ## MIDI Input Details
 Every input vector x is 66-dimensional and structured as follows:
@@ -22,7 +22,10 @@ In MIDI, an event is characterized by the following features:
 - Velocity: Integer in [0,255]
 - Duration: Integer in (0,infinity)
 
-We use a -1 in all features to indicate a silenced channel.
+Notes:
+- We use a -1 in all features to indicate a silenced channel.
+- The 16 channel font features are fixed for the full duration of a single track.
+- The BPM is fixed for the full duration of a single track.
 
 ## Resources
 * [The Neural Network Zoo](http://www.asimovinstitute.org/neural-network-zoo/)
