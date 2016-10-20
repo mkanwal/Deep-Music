@@ -4,8 +4,6 @@
 Requirements:
 - [TensorFlow](https://www.tensorflow.org/versions/r0.11/get_started/os_setup.html#download-and-setup)
 - [Keras](https://keras.io/#installation)
-- [seq2seq](https://github.com/farizrahman4u/seq2seq#final-words)
-- [Recurrent Shop](https://github.com/datalogai/recurrentshop#installation)
 - [Python MIDI](https://github.com/vishnubob/python-midi) / pip install python-midi
 
 ## MIDI Input Details
