@@ -19,7 +19,7 @@ Every input vector x is 66-dimensional and structured as follows:
 In MIDI, an event is characterized by the following features:
 - Font: Integer in [0,127]
 - Note: Integer in [0,127]
-- Velocity: Integer in [0,255]
+- Velocity: Integer in [0,127]
 - Duration: Integer in (0,infinity)
 
 We use a -1 in all features to indicate a silenced channel.
